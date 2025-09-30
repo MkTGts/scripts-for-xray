@@ -47,9 +47,21 @@ class UsersConfigVless:
 
         self.write_new_config(config=config)
 
+    
+    def encoder_to_base64(self, string):
+        '''кодирует строку в base64'''
+        import base64
+
+        string += "\n"
+        return base64.b64encode(string.encode("utf-8")).decode()
 
 
-if __name__ == "__main__":
+
+
+
+if __name__ == "+__main__":
     email = str(input("Email: "))
     s = UsersConfigVless()
     s.create_new_user(email=email)
+
+
