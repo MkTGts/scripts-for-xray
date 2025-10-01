@@ -1,0 +1,84 @@
+{
+    "log": {
+        "loglevel": "debug",
+        "access": "/home/user/xray_log/access.log",
+        "error": "/home/user/xray_log/error.log"
+    },
+    "dns": {
+        "servers": [
+            "https://1.1.1.1/dns-query",
+            "https://8.8.8.8/dns-query",
+            "https://1.0.0.1/dns-query",
+            "https://8.8.4.4/dns-query"
+        ]
+    },
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "type": "field",
+                "ip": [],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:cn"
+                ],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:category-ads-all"
+                ],
+                "outboundTag": "block"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "port": 443,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "1d6e9ea2-2283-409e-86ad-76bae1f87321",
+                        "flow": "xtls-rprx-vision",
+                        "level": 0,
+                        "email": "example@example.com"
+                    }
+                ],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": 8080
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "alpn": "http/1.1",
+                    "certificates": [
+                        {
+                            "certificateFile": "/home/user/xray_cert/xray.crt",
+                            "keyFile": "/home/user/xray_cert/xray.key"
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "direct",
+            "protocol": "freedom"
+        },
+        {
+            "tag": "block",
+            "protocol": "blackhole"
+        }
+    ]
+}

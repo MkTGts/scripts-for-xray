@@ -9,7 +9,8 @@ def get_envvar():
                 continue
 
             else:
-                line = line.split("=")
-                envvars[line[0]] = line[1]
+                #line = line.split("=")
+                #envvars[line[0]] = line[1]
+                envvars[line[:line.index("=")]] = line[line.index("=")+1:]
     return envvars
 
