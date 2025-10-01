@@ -47,6 +47,12 @@
                         "flow": "xtls-rprx-vision",
                         "level": 0,
                         "email": "example@example.com"
+                    },
+                    {
+                        "id": "d9a38b8b-5896-4573-84d6-a8b5cd38c16a",
+                        "flow": "xtls-rprx-vision",
+                        "level": 0,
+                        "email": "qwe"
                     }
                 ],
                 "decryption": "none",

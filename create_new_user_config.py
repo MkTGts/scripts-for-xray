@@ -65,7 +65,8 @@ class UsersConfigVless:
                       uuid: str,
                       site: str,
                       name: str,
-                      port: str
+                      port: str,
+                      show_vless_uri
                       ):
         '''генерация ссылки vless'''
         pattern_uri: str = self._config["USER_CONFIG_PATTERN"]
@@ -73,31 +74,41 @@ class UsersConfigVless:
         pattern_uri = pattern_uri.replace("site", site)
         pattern_uri = pattern_uri.replace("Name", name)
         pattern_uri= pattern_uri.replace("port", port)
+
+        if show_vless_uri:
+            print(pattern_uri)
         
         return self.encoder_to_base64(string=pattern_uri)
     
 
-    def create_user_config_file(self, name, filename, port):
+    def create_user_config_file(self, name, filename, port, show_vless_uri):
         '''создает файл конфига который будет устанавливать пользователь'''
         with open(self._config["PATH_USER_CONFIG"]+filename, "w", encoding="utf-8") as file:
             file.write(self.gen_vless_uri(
                 uuid=self.uuid,
                 site=self._config["SITE"],
                 name=name,
-                port=port
+                port=port,
+                show_vless_uri=show_vless_uri
             ))
 
     
     def add_new_user(self):
         try:
             email = input("Email: ")
+
+            if input("Показать vless ссылку на конфиг (y/n): ") == "y":
+                show_vless_uri = True
+            else:
+                show_vless_uri = False
+
             uuid = self.gen_uuid()  # генерируется uuid для новго пользователя
             new_user = self.gen_new_user(email=email, uuid=uuid)  # словарь с новым пользователем для конфига json
             full_json_config = self.get_config()  # получение полнонго конфина из файла конфига
             new_full_json_config = self.add_new_user_to_config(new_user=new_user, config=full_json_config)  # новый конфиг с добавленным пользователем
             self.write_new_config(config=new_full_json_config)  # перезапись нового кофига в файл json конфиг
 
-            self.create_user_config_file(name=email, filename=email, port="443")
+            self.create_user_config_file(name=email, filename=email, port="443", show_vless_uri=show_vless_uri)
             print(f"Ссылка на когфиш для пользователя {self._config["SITE_USER_CONFIGS_URL"]}/{email}")
         except Exception as err:
             print(f"Возникла ошибка {err}")
