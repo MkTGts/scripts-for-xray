@@ -22,3 +22,4 @@
 - **USER_CONFIG_PATTERN**  -  шаблон конфигурационной ссылки vless, которую пользователь может вставить в приложение, для настройки. Как пример, может иметь вид:  
   `vless://uuid@site:port?flow=xtls-rprx-мision&security=tls&allowInsecure=0&encryption=none&type=tcp&headerType=none#Name`
 - **SITE**  -  адрес сайта через который работает XRay. В формате: `example.com`
+- **SITE_USER_CONFIGS_URL**  -  url места на сайте, где лежат конфиги для пользователей. Как пример `https://site.com/subs/`

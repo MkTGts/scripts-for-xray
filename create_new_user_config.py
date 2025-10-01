@@ -2,7 +2,7 @@ import env_utils
 
 
 class UsersConfigVless:
-    v = "0.0.1"
+    v = "0.0.2"
 
     def __init__(self):
         self._config = env_utils.get_envvar()
@@ -98,7 +98,7 @@ class UsersConfigVless:
             self.write_new_config(config=new_full_json_config)  # перезапись нового кофига в файл json конфиг
 
             self.create_user_config_file(name=email, filename=email, port="443")
-            print(f"Ссылка на когфиш для пользователя https://{self._config["SITE"]}/{self._config["PATH_USER_CONFIG"]}{email}")
+            print(f"Ссылка на когфиш для пользователя {self._config["SITE"]}/{email}")
         except Exception as err:
             print(f"Возникла ошибка {err}")
 
