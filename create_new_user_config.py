@@ -98,7 +98,7 @@ class UsersConfigVless:
             self.write_new_config(config=new_full_json_config)  # перезапись нового кофига в файл json конфиг
 
             self.create_user_config_file(name=email, filename=email, port="443")
-            print(f"Ссылка на когфиш для пользователя {self._config["SITE"]}/{email}")
+            print(f"Ссылка на когфиш для пользователя {self._config["SITE_USER_CONFIGS_URL"]}/{email}")
         except Exception as err:
             print(f"Возникла ошибка {err}")
 
