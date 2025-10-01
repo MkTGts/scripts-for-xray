@@ -6,7 +6,7 @@ class UsersConfigVless:
 
     def __init__(self):
         self._config = env_utils.get_envvar()
-        self.uuid = ""
+        self.uuid = self.gen_uuid()
 
 
     def gen_uuid(self):
@@ -102,7 +102,7 @@ class UsersConfigVless:
             else:
                 show_vless_uri = False
 
-            uuid = self.gen_uuid()  # генерируется uuid для новго пользователя
+            uuid = self.uuid  # генерируется uuid для новго пользователя
             new_user = self.gen_new_user(email=email, uuid=uuid)  # словарь с новым пользователем для конфига json
             full_json_config = self.get_config()  # получение полнонго конфина из файла конфига
             new_full_json_config = self.add_new_user_to_config(new_user=new_user, config=full_json_config)  # новый конфиг с добавленным пользователем
