@@ -57,7 +57,7 @@ class UsersConfigVless:
         '''кодирует строку в base64'''
         import base64
 
-        string += "\n"
+        #string += "\n"
         return base64.b64encode(string.encode("utf-8")).decode()
     
 
